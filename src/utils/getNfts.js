@@ -34,19 +34,25 @@ export const getNFTsOwned = async (address, platform, offSet) => {
     .then((response) => response.json())
     .then((data) => {
       let filterData
-      if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
-        filterData = data.data.filter((item) => {
-          return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
-        })
+      if (data.data) {
+        //handle wallet without nfts exception
+        if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
+          filterData = data.data.filter((item) => {
+            // return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
+            return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
+          })
+        } else {
+          filterData = []
+          collection.forEach((nft) => {
+            data.data.filter((item) => {
+              if (item.contract === nft.contract && item.token === nft.token) {
+                filterData.push(item)
+              }
+            })
+          })
+        }
       } else {
         filterData = []
-        collection.forEach((nft) => {
-          data.data.filter((item) => {
-            if (item.contract === nft.contract && item.token === nft.token) {
-              filterData.push(item)
-            }
-          })
-        })
       }
 
       data.filteredData = filterData

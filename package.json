@@ -9,17 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@taquito/beacon-wallet": "^14.0.0",
+    "@taquito/taquito": "^14.0.0",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@darkblock.io/eth-widget": "^0.2.12",
     "autoprefixer": "^10.4.11",
-    "postcss": "^8.4.16",
-    "tailwindcss": "^3.1.8",
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",
-    "@darkblock.io/eth-widget": "^0.2.12",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
     "web3": "^1.8.0"
   }
 }

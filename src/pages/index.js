@@ -6,7 +6,7 @@ import { collection } from "../utils/collection";
 import { Loading } from "../components/Loading";
 import { Web3Context } from "../context/Web3Context";
 
-const platform = "Ethereum";
+const platform = 'Tezos'
 
 export default function Home() {
   const [myNfts, setMyNfts] = useState([]);
@@ -22,7 +22,7 @@ export default function Home() {
   const getData = async () => {
     await getNFTs(
       process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS,
-      "Ethereum",
+      platform,
       offset
     ).then((res) => {
       setIsLoaded(false);
