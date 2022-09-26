@@ -5,7 +5,7 @@
 <h2>Intro:</h2>
 <h3>We are going to clone a simple web app of nfts using Next and our Ethereum widget.</h3>
 <h3>
-<a href="https://nextjs.org/docs">Check out the Next documents here </a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
+<a href="https://nextjs.org/docs">Check out the Next documents here</a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
 <h2>Clone</h2><br>
 <ol>
 <li>Go to your desktop and create a folder where you want your project to live. Open a new terminal, GitBash Here, or cmd.</li><br>
@@ -28,7 +28,7 @@ npm install or yarn install
 
 <h2>How do you run your site locally?</h2>
 <ol>
-<li>In the command line, cd into the directory that you created.
+<li>In the command line, cd into the directory that you created. 
 <h3>Ex.</h3>
 <br>
 
@@ -57,8 +57,7 @@ npm run dev
 NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS=YourDefaultAddresHere //this is the default address with NFTs you want to see as a gallery
 <br>
 NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS=true //true if you want to use a wallet addres, false if you want to use a Json object
-<br>
-NEXT_PUBLIC_REACT_APP_API_KEY= yourApikey
+
 <h3>Restart your app and run</h3>
 <br>
 
@@ -69,19 +68,10 @@ npm run dev
 <h3>Refresh your page and you will need to log into your Ethereum wallet.</h3>
 <br>
 
-<h3>And then you have the <strong>Darkblock Ethereum Widget</strong> working!!!	&#x1f609; Congrats.</h3><br>
+<img src="./eth.png"><br>
 
-## Learn More
+<h3>And now you have the <strong>Darkblock Ethereum Widget</strong> working!!!	&#x1f609; Congrats.</h3><br>
 
-To learn more about Next.js, take a look at the following resources:
+<img src="./EthereumAuth.png"><br>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h3>The whole code for this guide is in <a href="https://github.com/darkblockio/Starter-Ethereum-Nextjs">Github</a></h3>
