@@ -14,7 +14,12 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.11",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
     "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "12.3.1",
+    "@darkblock.io/eth-widget": "^0.2.12",
+    "web3": "^1.8.0"
   }
 }

@@ -1,0 +1,9 @@
+.DarkblockWidget-App {
+  @apply font-sans text-gray-500 bg-white ;
+}
+.DarkblockWidget-App .DarkblockWidget-Footer {
+  @apply px-2 py-3;
+}
+.DarkblockWidget-App .DarkblockWidget-Stack-Panel {
+  @apply bg-white;
+}
