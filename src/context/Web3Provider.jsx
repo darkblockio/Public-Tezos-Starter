@@ -32,10 +32,10 @@ function tezosReducer(state, action) {
         },
       }
     case 'RESET_PROVIDER':
-      return initialState
+      return INITIAL_STATE
     case 'SET_CHAIN_ERROR':
       return {
-        ...initialState,
+        ...INITIAL_STATE,
         tezos: {
           chainError: true,
         },

@@ -10,18 +10,15 @@ const NftCard = ({ nft }) => {
         <div className="mb-8 text-center transition-all transform group hover:scale-105 bg-secondary rounded-xl w-72">
           <div>
             <img // eslint-disable-line
-              className='object-cover mx-auto h-72 rounded-t-xl'
-              loading={'lazy'}
+              className='object-cover mx-auto truncate h-72 rounded-t-xl'
+              loading={'lazy '}
               alt={image}
               src={image}
             />
           </div>
           <div className="w-full p-3 text-left h-28">
-            <h2 className="text-lg font-semibold leading-5 text-white text-center truncate whitespace-nowrap">
+            <h2 className="text-lg font-semibold leading-5 text-center text-white truncate whitespace-nowrap">
               {name}
-            </h2>
-            <h2 className="text-sm font-semibold leading-5 text-white text-center truncate whitespace-nowrap">
-            {description}
             </h2>
             { is_darkblocked ? (
               <div className="flex items-center w-full py-2">
@@ -30,11 +27,14 @@ const NftCard = ({ nft }) => {
                   className="h-5"
                   src="/footericon-blk.svg"
                 ></img>
-                <div className='pl-2 font-semibold text-white text-sm align-middle'>
+                <div className='pl-2 text-sm font-semibold text-white align-middle'>
                   Unlockable Content
                 </div>
               </div>
-            ) : <div className='h-5'></div>}
+            ) : <div className='pt-9'></div>}
+            <h3 className="text-sm font-semibold leading-5 text-center text-white truncate whitespace-nowrap">
+            {description}
+            </h3>
           </div>
           <div className='absolute bottom-0 hidden w-full py-2 font-medium text-white cursor-pointer group-hover:block bg-terciary rounded-b-xl'>
             Details
