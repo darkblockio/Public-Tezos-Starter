@@ -1,24 +1,24 @@
 import dynamic from 'next/dynamic'
 import Router from 'next/router'
 
-const EthereumDarkblockWidget = dynamic(
+const TezosDarkblockWidget = dynamic(
   () =>
-    import('@darkblock.io/eth-widget').then((mod) => {
-      return mod.EthereumDarkblockWidget
+    import('@darkblock.io/tez-widget').then((mod) => {
+      return mod.TezosDarkblockWidget
     }),
   { ssr: false }
 )
 
-const EthUpgradeWidget = dynamic(
+const TezosUpgradeWidget = dynamic(
   () =>
-    import('@darkblock.io/eth-widget').then((mod) => {
-      return mod.EthUpgradeWidget
+    import('@darkblock.io/tez-widget').then((mod) => {
+      return mod.TezosUpgradeWidget
     }),
   { ssr: false }
 )
 
 const cb = (param1) => {
-  // console.log('ethwidget cb', param1)
+  // console.log(param1)
 }
 
 const config = {
@@ -33,7 +33,6 @@ const config = {
 }
 
 const cbUpgrade = (param1) => {
-  // console.log('eth upgrade cb', param1)
   if (param1 === 'upload_complete') {
     Router.reload()
   }
@@ -41,29 +40,19 @@ const cbUpgrade = (param1) => {
 
 const apiKey = process.env.NEXT_PUBLIC_REACT_APP_API_KEY
 
-export const EthWidget = ({ id, contract, w3, upgrade = false, network = 'mainnet' }) => {
+export const TezWidget = ({ id, contract, wa, upgrade = false }) => {
   if (upgrade) {
     return (
-      <EthUpgradeWidget
+      <TezosUpgradeWidget
         apiKey={apiKey}
         contractAddress={contract}
         tokenId={id}
-        w3={w3}
+        wa={wa}
         cb={cbUpgrade}
         config={config}
-        network={network}
       />
     )
   } else {
-    return (
-      <EthereumDarkblockWidget
-        contractAddress={contract}
-        tokenId={id}
-        w3={w3}
-        cb={cb}
-        config={config}
-        network={network}
-      />
-    )
+    return <TezosDarkblockWidget contractAddress={contract} tokenId={id} wa={wa} cb={cb} config={config} />
   }
 }
