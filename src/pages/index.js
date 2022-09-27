@@ -36,20 +36,20 @@ export default function Home() {
   const getMyNFTs = async (address, loadMore) => {
     await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0, arrayOfNfts).then(
       (nfts) => {
-        setIsLoaded(false);
-        let allNfts = [];
+        setIsLoaded(false)
+        let allNfts = []
         if (
           loadMore &&
           process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === "true"
         ) {
-          allNfts = myNfts.concat(nfts.nfts.filteredData);
+          allNfts = myNfts.concat(nfts.nfts.filteredData)
         } else {
-          allNfts = nfts.nfts.filteredData;
+          allNfts = nfts.nfts.filteredData
         }
-        setMyNfts(allNfts);
-        setOffsetMyNfts(nfts.nfts.next_offset);
-        setHasMoreMyNfts(nfts.nfts.has_more);
-        setIsLoaded(true);
+        setMyNfts(allNfts)
+        setOffsetMyNfts(nfts.nfts.next_offset)
+        setHasMoreMyNfts(nfts.nfts.has_more)
+        setIsLoaded(true)
       }
     );
   };
@@ -57,16 +57,14 @@ export default function Home() {
   useEffect(() => {
     process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === "true"
       ? getData()
-      : setArrayOfNfts(collection);
-  }, []);
+      : setArrayOfNfts(collection)
+  }, []) // eslint-disable-line
 
   useEffect(() => {
-    if (address && address.length > 0) {
-      setMyNfts([]);
-      setOffsetMyNfts(0)
-      getMyNFTs(address)
-    }
-  }, [address]);
+    setMyNfts([]);
+    setOffsetMyNfts(0)
+    getMyNFTs(address)
+  }, [address, arrayOfNfts]); // eslint-disable-line
 
   const renderNFTs = () => {
     switch (showNfts) {
@@ -127,11 +125,18 @@ export default function Home() {
             Load More
           </button>
         )}
-        {myNfts?.length === 0 && showNfts === "darkblockeds" && (
-          <div className="w-full h-screen m-auto text-xl text-center text-white">
-            {`Oops, looks like you don't have any matching NFTs in this wallet.`}
-          </div>
-        )}
+
+        { address && address.length > 0 ?
+          (myNfts?.length === 0 && showNfts === "darkblockeds" && (
+            <div className="w-full h-screen m-auto text-xl text-center text-white">
+              {`Oops, looks like you don't have any matching NFTs in this wallet.`}
+            </div>
+          )) : (
+            <div className="w-full h-screen m-auto text-xl text-center text-white">
+              {`Connect your wallet.`}
+            </div>
+          )
+        }
       </div>
     </div>
   );
