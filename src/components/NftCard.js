@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 
 const NftCard = ({ nft }) => {
-  const { name, image, is_darkblocked, contract, token } = nft
+  const { name, image, is_darkblocked, contract, token, description } = nft
 
   return (
     <Link href={`details/${contract}/${token}`}>
@@ -19,6 +19,9 @@ const NftCard = ({ nft }) => {
           <div className="w-full p-3 text-left h-28">
             <h2 className="text-lg font-semibold leading-5 text-white text-center truncate whitespace-nowrap">
               {name}
+            </h2>
+            <h2 className="text-sm font-semibold leading-5 text-white text-center truncate whitespace-nowrap">
+            {description}
             </h2>
             { is_darkblocked ? (
               <div className="flex items-center w-full py-2">
