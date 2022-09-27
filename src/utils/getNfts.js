@@ -26,7 +26,7 @@ export const getNFTs = async (address, platform, offset = 0) => {
     })
 }
 
-export const getNFTsOwned = async (address, platform, offSet) => {
+export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) => {
   const pageSize = 48
   return await fetch(
     `${baseApi}/nfts/collected?platform=${platform}&account=${address}&offset=${offSet}&page_size=${pageSize}`
@@ -37,10 +37,16 @@ export const getNFTsOwned = async (address, platform, offSet) => {
       if (data.data) {
         //handle wallet without nfts exception
         if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
-          filterData = data.data.filter((item) => {
-            // return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
-            return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
-          })
+          filterData = []
+          arrayOfNfts.forEach(nft => {
+            data.data.filter((item) => {
+              if (item.contract === nft.contract && item.token === nft.token) {
+                filterData.push(item)
+              }
+              // return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
+              //return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
+            })
+          });
         } else {
           filterData = []
           collection.forEach((nft) => {
@@ -54,7 +60,6 @@ export const getNFTsOwned = async (address, platform, offSet) => {
       } else {
         filterData = []
       }
-
       data.filteredData = filterData
 
       return {
