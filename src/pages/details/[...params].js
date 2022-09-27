@@ -6,7 +6,7 @@ import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
 import { Web3Context } from '../../context/Web3Context'
-import { EthWidget } from '../../components/EthWidget'
+import { TezWidget } from '../../components/TezWidget'
 import { Loading } from '../../components/Loading'
 
 const countAttribs = (nft) => {
@@ -19,13 +19,14 @@ const countAttribs = (nft) => {
   return count
 }
 
+const platform = 'Tezos'
+
 const NftDetailCard = () => {
   const router = useRouter()
   const contract = router.query.params ? router.query.params[0] : null
   const id = router.query.params ? router.query.params[1] : null
-  const platform = 'Ethereum'
   const [nftData, setNftData] = useState(null)
-  const { wallet } = useContext(Web3Context)
+  const { provider } = useContext(Web3Context)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -66,11 +67,11 @@ const NftDetailCard = () => {
                 <div className="mx-2">
                   {
                     <div className="flex justify-end py-3">
-                      <EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} upgrade={true} />
+                      <TezWidget contract={nftData.contract} id={nftData.token} wa={provider} upgrade={true} />
                     </div>
                   }
 
-                  {<EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} />}
+                  {<TezWidget contract={nftData.contract} id={nftData.token} wa={provider} />}
                 </div>
               </div>
             </div>
