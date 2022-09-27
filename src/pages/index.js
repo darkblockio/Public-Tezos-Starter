@@ -34,7 +34,7 @@ export default function Home() {
   };
 
   const getMyNFTs = async (address, loadMore) => {
-    await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0).then(
+    await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0, arrayOfNfts).then(
       (nfts) => {
         setIsLoaded(false);
         let allNfts = [];
@@ -63,10 +63,8 @@ export default function Home() {
   useEffect(() => {
     if (address && address.length > 0) {
       setMyNfts([]);
-      setOffsetMyNfts(0);
-      setTimeout(() => {
-        getMyNFTs(address);
-      }, 1);
+      setOffsetMyNfts(0)
+      getMyNFTs(address)
     }
   }, [address]);
 
