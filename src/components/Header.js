@@ -6,6 +6,14 @@ import { Web3Context } from '../context/Web3Context'
 const Header = () => {
   const { address, connect, disconnect } = useContext(Web3Context)
 
+  const handleConnect = () => {
+    if (address && address !== '') {
+      disconnect()
+    } else {
+      connect()
+    }
+  }
+
   return (
     <header className="absolute sticky top-0 z-50 flex flex-col items-center justify-center w-auto h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
@@ -24,7 +32,7 @@ const Header = () => {
           <div className="items-center justify-end space-x-4 md:inline-flex">
             <button
               className="h-12 px-4 py-2 text-base text-white border rounded bg-primary border-terciary hover:border-white"
-              onClick={() => connect()}
+              onClick={ handleConnect }
             >
               {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}
             </button>
