@@ -21,7 +21,7 @@ const Header = () => {
           <div className="flex items-center "></div>
           <Link href="/">
             <img // eslint-disable-line
-              className="w-auto h-12 px-2 py-2 border rounded cursor-pointer hover:border-white hover:w-auto border-terciary"
+              className="w-auto h-12 px-2 py-2 border rounded cursor-pointer hover:border-fontColor hover:w-auto border-terciary"
               src="/images/MyLogo.png"
               alt="Change your logo here"
             />
@@ -31,7 +31,7 @@ const Header = () => {
           <div className="block ml-2 "></div>
           <div className="items-center justify-end space-x-4 md:inline-flex">
             <button
-              className="h-12 px-4 py-2 text-base text-white border rounded bg-primary border-terciary hover:border-white"
+              className="h-12 px-4 py-2 text-base text-fontColor border rounded bg-primary border-terciary hover:border-fontColor"
               onClick={ handleConnect }
             >
               {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}
