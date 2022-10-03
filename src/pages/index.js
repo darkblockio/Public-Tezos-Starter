@@ -120,7 +120,7 @@ export default function Home() {
         {HasMoreNfts && showNfts === "created" && (
           <button
             onClick={getData}
-            className="flex justify-center p-2 m-auto font-semibold bg-fontColor bg-gray-200 rounded "
+            className="flex justify-center p-2 m-auto font-semibold bg-gray-200 rounded bg-fontColor "
           >
             Load More
           </button>

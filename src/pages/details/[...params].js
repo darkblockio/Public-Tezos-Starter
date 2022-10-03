@@ -28,7 +28,6 @@ const NftDetailCard = () => {
   const [nftData, setNftData] = useState(null)
   const { provider } = useContext(Web3Context)
   const [isLoading, setIsLoading] = useState(false)
-  console.log(nftData, 'dataaaaaaa')
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
@@ -67,7 +66,7 @@ const NftDetailCard = () => {
                 <div className="pt-2 mx-2">{nftData.nft_description}</div>
                 <div className="mx-2">
                   {
-                    //be sure font color is dark, NPM brings a white background 
+                    //be sure font color is dark, NPM brings a white background
                     <div className="flex justify-end py-3 text-gray-800">
                       <TezWidget contract={nftData.contract} id={nftData.token} wa={provider} upgrade={true} />
                     </div>
