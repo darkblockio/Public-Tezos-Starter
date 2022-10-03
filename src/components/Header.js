@@ -15,7 +15,7 @@ const Header = () => {
   }
 
   return (
-    <header className='absolute sticky top-0 z-50 flex flex-col items-center justify-center w-auto h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary'>
+    <header className='sticky top-0 z-50 flex flex-col items-center justify-center w-auto h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary'>
       <nav className='flex items-center justify-between w-full'>
         <div className='flex items-center flex-auto'>
           <div className='flex items-center '></div>
