@@ -1,4 +1,4 @@
-<h1>Next Ethereum</h1>
+<h1>Next Tezos</h1>
 <h3>Hey Newbie &#128075;</h3>
 <h4>Open this in preview mode for the best experience</h4>
 <hr>

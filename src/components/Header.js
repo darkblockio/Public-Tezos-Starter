@@ -39,9 +39,9 @@ const Header = () => {
               className="h-12 px-4 py-2 text-base border rounded text-fontColor bg-primary border-terciary hover:border-fontColor"
               onClick={ handleConnect }
             >
-              { address && address !== ''
+              {address && address !== ''
                 ? shortenAddr(address)
-                : 'Connect Wallet' }
+                : 'Connect Wallet'}
             </button>
           </div>
         </div>
