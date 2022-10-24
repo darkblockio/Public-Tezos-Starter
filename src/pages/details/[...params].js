@@ -83,10 +83,10 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className="w-full max-w-4xl px-4 mx-auto md:col-span-2">
-                <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-2">{nftData.name}</div>
+              <div className="w-full max-w-4xl mx-auto md:col-span-2">
+                <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-3">{nftData.name}</div>
                 <div className="pt-2 mx-2">{nftData.nft_description || nftData.description}</div>
-                <div className="mx-2 md:mr-2">
+                <div className="mx-4 md:mr-2">
                   {/* Setup the Darkblock Tezos Widget
                    * For more information visit https://www.npmjs.com/package/@darkblock.io/tez-widget
                    * @param {contract}
@@ -113,10 +113,10 @@ const NftDetailCard = () => {
                       </div>
                     </div>
                     <div className="border border-gray-200 rounded-md">
-                      {nftData.traits?.map((i) => (
-                        <div key={i.value} className="grid grid-cols-2 p-2 md:grid-cols-2 ">
-                          <p className="pt-1 text-sm font-semibold text-left text-gray-500">{i.name}</p>
-                          <p className="text-base text-right text-fontColor ">{shortenAddr(i.value)}</p>
+                      {nftData.traits?.map((trait, index) => (
+                        <div key={index} className="grid grid-cols-2 p-2 md:grid-cols-2 ">
+                          <p className="pt-1 text-sm font-semibold text-left text-gray-500">{trait.name}</p>
+                          <p className="text-base text-right text-fontColor ">{shortenAddr(trait.value)}</p>
                         </div>
                       ))}
                     </div>
@@ -205,7 +205,7 @@ const NftDetailCard = () => {
                     <div className="flex pb-2 mt-2">
                       <h2 className="font-bold ">Created by</h2>
                       <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded">
-                        {nftData.creators?.length ? nftData.creators.length : 0}
+                        {creators?.length ? creators.length : 0}
                       </div>
                     </div>
                     {creators?.map((item, i) => (
