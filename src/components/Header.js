@@ -27,7 +27,7 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="flex items-center flex-auto">
+        <div className="items-center flex-auto hidden md:block">
           <div className='text-4xl text-fontColor '>
             Tezos Gallery
           </div>

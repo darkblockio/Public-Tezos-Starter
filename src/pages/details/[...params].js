@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { getNFTMetadata } from '../../utils/getNfts'
-import { validateImage } from '../../utils/validateImage'
+import { validateImage, isImageType } from '../../utils/validateImage'
 import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
@@ -19,6 +19,7 @@ const countAttribs = (nft) => {
   return count
 }
 
+// Select the chain you want to use
 const platform = 'Tezos'
 
 const NftDetailCard = () => {
@@ -28,16 +29,31 @@ const NftDetailCard = () => {
   const [nftData, setNftData] = useState(null)
   const { provider } = useContext(Web3Context)
   const [isLoading, setIsLoading] = useState(false)
+  const [creators, setCreators] = useState([])
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
       setIsLoading(true)
-      getNFTMetadata(contract, id, `${platform}`).then((data) => {
+      getNFTMetadata(contract, id, platform).then((data) => {
         setNftData(data.nft)
         setIsLoading(false)
       })
     }
   }, [id, contract])
+
+  useEffect(() => {
+    if ((!creators || creators.length < 1) && nftData != null && nftData.creator_address) {
+      setCreators([nftData.creator_address])
+    }
+  }, [nftData])
+
+  const shortPlatforms = {
+    Ethereum: `eth`,
+    Polygon: `matic`,
+    Avalanche: `avax`,
+    Solana: `sol`,
+    Tezos: `tez`,
+  }
 
   return (
     <div>
@@ -50,34 +66,44 @@ const NftDetailCard = () => {
             <div className="grid grid-cols-1 gap-1 pt-8 md:grid-cols-3">
               <div className="md:pl-20">
                 <div className="mb-10 font-sans text-4xl font-bold text-center md:hidden md:mb-2">{nftData.name}</div>
-                {nftData && nftData.image ? (
-                  <img // eslint-disable-line
-                    className="px-4 mx-auto my-5 rounded-md h-66"
-                    src={validateImage(nftData.image)}
-                    alt="NFT"
+                {!!nftData.animation_url && !isImageType(nftData.animation_url) ? (
+                  <video
+                    className="mx-auto my-5 mb-12 border border-gray-200 rounded-md shadow-md h-66"
+                    src={validateImage(nftData.animation_url)}
+                    autoPlay
+                    muted
+                    loop
                   />
                 ) : (
-                  <></>
+                  <img // eslint-disable-line
+                    alt="NFT"
+                    className="mx-auto my-5 mb-12 border border-gray-200 rounded-md shadow-md h-66"
+                    src={validateImage(nftData.image)}
+                  />
                 )}
               </div>
 
               <div className="w-full max-w-4xl px-4 mx-auto md:col-span-2">
                 <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-2">{nftData.name}</div>
-                <div className="pt-2 mx-2">{nftData.nft_description}</div>
-                <div className="mx-2">
-                  {
-                    //be sure font color is dark, NPM brings a white background
-                    <div className="flex justify-end py-3 text-gray-800">
-                      <TezWidget contract={nftData.contract} id={nftData.token} wa={provider} upgrade={true} />
-                    </div>
-                  }
+                <div className="pt-2 mx-2">{nftData.nft_description || nftData.description}</div>
+                <div className="mx-2 md:mr-2">
+                  {/* Setup the Darkblock Tezos Widget
+                   * For more information visit https://www.npmjs.com/package/@darkblock.io/tez-widget
+                   * @param {contract}
+                   * @param {id}
+                   * @param {w3}
+                   * @param {upgrader} optional
+                   */}
+                  <div className="flex justify-end pb-4 text-gray-800">
+                    <TezWidget contract={nftData.contract} id={nftData.token} wa={provider} upgrade={true} />
+                  </div>
 
-                  {<TezWidget contract={nftData.contract} id={nftData.token} wa={provider} />}
+                  <TezWidget contract={nftData.contract} id={nftData.token} wa={provider} />
                 </div>
               </div>
             </div>
             <div>
-              <div className="grid w-full md:grid-cols-3 gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7">
+              <div className="grid w-full gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7">
                 {nftData.traits && (
                   <div className="flex flex-col pb-2">
                     <div className="flex flex-row mb-2">
@@ -179,14 +205,20 @@ const NftDetailCard = () => {
                     <div className="flex pb-2 mt-2">
                       <h2 className="font-bold ">Created by</h2>
                       <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded">
-                        {nftData.creators?.length ? nftData.creators.length : 1}
+                        {nftData.creators?.length ? nftData.creators.length : 0}
                       </div>
                     </div>
-                    {nftData.creator_address && (
-                      <p className="p-3 font-medium text-center text-gray-500 border border-gray-100 rounded">
-                        {shortenAddr(nftData.creator_address)}
-                      </p>
-                    )}
+                    {creators?.map((item, i) => (
+                      <a
+                        className="pb-2 font-medium underline truncate"
+                        key={i}
+                        href={`https://app.darkblock.io/platform/${shortPlatforms[platform]}/${item}`}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <p>{shortenAddr(item)}</p>
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>

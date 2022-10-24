@@ -4,3 +4,8 @@ export const validateImage = (urlImage) => {
   }
   return urlImage
 }
+
+export const isImageType = (urlImage) => {
+  const test = /\.(jpg|jpeg|png|webp|avif|gif|svg|glb)$/.test(urlImage)
+  return test
+}
