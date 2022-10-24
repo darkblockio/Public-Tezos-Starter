@@ -3,6 +3,14 @@ import { filter } from './filter'
 
 const baseApi = process.env.NEXT_PUBLIC_BASE_API ? process.env.NEXT_PUBLIC_BASE_API : 'https://api.darkblock.io/v1/'
 
+/**
+ * Get the list of nfts in a wallet
+ * Returns [NFTsArray]
+ *
+ * @param {address} Wallet address
+ * @param {platform} Could be Polygon, Ethereum, Avalanche, Solana, Tezos
+ * @return {offset}
+ */
 export const getNFTs = async (address, platform, offset = 0) => {
   const pageSize = 48
   return await fetch(
@@ -28,7 +36,7 @@ export const getNFTs = async (address, platform, offset = 0) => {
 }
 
 export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) => {
-  const pageSize = 48
+  const pageSize = 48 // Amount of nfts you want to see in the page
   return await fetch(
     `${baseApi}/nfts/collected?platform=${platform}&account=${address}&offset=${offSet}&page_size=${pageSize}`
   )
@@ -36,17 +44,16 @@ export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) 
     .then((data) => {
       let filterData
       if (data.data) {
-        //handle wallet without nfts exception
+        //handle wallet without nfts exception, true if you want to see nfts of your wallet, false if you want to use JSON file of a collection
         if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
           filterData = filter(arrayOfNfts, data)
-          // return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
-          //return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
         } else {
           filterData = filter(collection, data)
         }
       } else {
         filterData = []
       }
+
       data.filteredData = filterData
 
       return {
@@ -66,29 +73,16 @@ export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) 
     })
 }
 
+/**
+ * Get metadata from a NFT
+ * Returns an object with the NFT metadata information
+ *
+ * @param {contract} x The contract address
+ * @param {id} The token of the contract
+ * @return {platform} Could be Polygon, Ethereum, Avalanche, Solana
+ */
 export const getNFTMetadata = async (contract, id, platform) => {
   return await fetch(`${baseApi}/nft/metadata?platform=${platform}&contract=${contract}&token=${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      return {
-        nft: data.data,
-        loaded: true,
-        error: false,
-        errorMsg: null,
-      }
-    })
-    .catch((error) => {
-      return {
-        nft: null,
-        loaded: true,
-        error: true,
-        errorMsg: error,
-      }
-    })
-}
-
-export const getNFTData = async (contract, tokenId) => {
-  return await fetch(`${baseApi}/nft/metadata?platform=Ethereum&contract=${contract}&token=${tokenId}`)
     .then((response) => response.json())
     .then((data) => {
       return {

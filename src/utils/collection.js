@@ -1,3 +1,5 @@
+
+// Put a nft collection into the array to show in the gallery page.
 export const collection = [
   {
     name: "𝔊𝔥𝔬𝔰𝔱 25",
