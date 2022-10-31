@@ -75,3 +75,6 @@ npm run dev
 <br>
 
 <h3>And then you have the <strong>Darkblock Tezos Widget</strong> working!!!	&#x1f609; Congrats.</h3>
+
+
+<h2>Please join us in Discord <a href="https://discord.com/channels/832678301814095942/832678301814095945">here</a> for any bugs or extra information.</h2>
